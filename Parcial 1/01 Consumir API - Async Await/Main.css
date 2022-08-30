@@ -15,3 +15,7 @@ body {
 * {
     color: rgb(208, 236, 255);
 }
+
+hr {
+    background: white;
+}

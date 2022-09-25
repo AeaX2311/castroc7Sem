@@ -2,14 +2,27 @@ const express = require('express');
 const cors = require('cors'); 
 const app = express();
 
+/////////////////////////Middleware
 app.use(cors( { origin: "http://localhost:8082" } ) );
 app.use(express.json());
 app.use(express.text());
 
+app.use((req, res, next) => {
+    //npm winston (para un log)
+    //npm log4js
+    console.log('Primera funcion middleware');
+    next();
+}, (req, res, next) => {
+    console.log('Segunda funcion middleware');
+    next();
+});
+
 /////////////////////////GET
 app.get('/', (req, res) => {
-    res.status(200).json({
-        mensaje: 'Hola'
+    res.status(200).sendFile("./www/Main.html", {
+        root : __dirname
+    }, (err) => {
+        console.log('Error: ' + err);
     })
 });
 
@@ -53,6 +66,10 @@ app.post("/json", (req, res) => {
         cadena: cadena
     });
 });
+
+// app.use((req, res) => {
+//404
+// })
 
 /////////////////////////LISTEN
 app.listen(8082, console.log('Servidor Express listo.'));

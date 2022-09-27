@@ -1,15 +1,21 @@
 const express = require('express');
 const cors = require('cors'); 
+const cadenas = require('./Modulos/FuncionesCadenaFullExport');
+const morgan = require('morgan');
+const path = require('path');
+const fs = require('fs');
+const logger = fs.createWriteStream(path.join(__dirname, "access.log"), {
+    flags: "a",
+});
 const app = express();
 
 /////////////////////////Middleware
 app.use(cors( { origin: "http://localhost:8082" } ) );
 app.use(express.json());
 app.use(express.text());
+app.use(morgan('combined', {stream: logger}));
 
 app.use((req, res, next) => {
-    //npm winston (para un log)
-    //npm log4js
     console.log('Primera funcion middleware');
     next();
 }, (req, res, next) => {
@@ -27,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/mayusculas/:cadena', (req, res) => {
-    res.send(req.params.cadena.toUpperCase());
+    res.send(cadenas.convertirMayusculas(req.params.cadena));
 });
 
 app.get('/suma', (req, res) => {
@@ -49,9 +55,9 @@ app.post('/', (req, res) => {
 });
 
 app.post("/texto", (req, res) => {
-    var may = req.body.toUpperCase();
-    var sinEsp = req.body.trim();
-    var length = may.length;
+    let may = cadenas.funciones.convertirMayusculas(req.body);
+    let sinEsp = cadenas.funciones.quitarEspacio(req.body);
+    let length = cadenas.funciones.obtenerLongitud(req.body);
 
     res.json({
         mayusculas: may,
@@ -66,10 +72,6 @@ app.post("/json", (req, res) => {
         cadena: cadena
     });
 });
-
-// app.use((req, res) => {
-//404
-// })
 
 /////////////////////////LISTEN
 app.listen(8082, console.log('Servidor Express listo.'));

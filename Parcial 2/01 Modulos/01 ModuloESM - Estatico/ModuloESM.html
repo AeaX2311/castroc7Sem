@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Modulo ESM</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div style="max-width: 60%; margin-left: 20%; text-align: center;">
+        <label for="cadena">Ingrese un texto:</label>
+        <input id="cadena" type="text">
+        <button id="btn">Imprimir..</button><br/><br/>
+
+        <label for="res">Resultado:</label>
+        <input id="res" type="text">
+    </div>
+    <script type="module">
+        //import {imprimir} from './ModuloESM.js'
+        import * as funciones from './ModuloESM.js'
+        document.getElementById("btn").addEventListener("click", () => {
+            let r = document.getElementById("cadena").value
+            funciones.imprimir(r);
+
+            document.getElementById("res").value = r;
+        })
+    </script>
+</body>
+</html>

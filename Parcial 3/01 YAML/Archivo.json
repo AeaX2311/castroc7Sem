@@ -1,0 +1,13 @@
+{
+    "nombres": "Alan Abiud",
+    "apelidos": "Castro Cruz",
+    "edad": "20",
+    "carrera": "ISC",
+    "materias": [
+        "Inteligencia artificial",
+        "Enrutamiento de datos",
+        "API REST"
+    ],
+    "numero_control": "19100159",
+    "es_regular": "Si"
+}

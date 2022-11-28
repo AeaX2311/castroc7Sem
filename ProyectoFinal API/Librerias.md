@@ -1,0 +1,8 @@
+- express
+- cors
+- mssql
+- jsdoc
+- swagger-jsdoc
+- swagger-ui-express
+- chai
+- chai-http
